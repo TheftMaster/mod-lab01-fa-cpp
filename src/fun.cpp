@@ -1,9 +1,10 @@
 // Copyright 2022 UNN-IASR
 
-#include "fun.h"
 #include <cctype>
+#include "fun.h"
 
-unsigned int faStr1(const char* str) {
+unsigned int faStr1(const char* str)
+{
     unsigned int count = 0;
     bool isWord = false;
 
@@ -54,10 +55,12 @@ unsigned int faStr3(const char* str) {
                 isWord = true;
                 count++;
             }
-
-            sum++;
-        } else {
+        } else if (!std::isspace(*str)) {
             isWord = false;
+        }
+
+        if (isWord) {
+            sum++;
         }
 
         str++;
