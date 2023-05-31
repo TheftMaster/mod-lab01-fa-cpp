@@ -3,8 +3,7 @@
 #include <cctype>
 #include "fun.h"
 
-unsigned int faStr1(const char* str)
-{
+unsigned int faStr1(const char* str) {
     unsigned int count = 0;
     bool isWord = false;
 
