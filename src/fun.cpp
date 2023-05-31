@@ -3,23 +3,17 @@
 #include "fun.h"
 #include <cctype>
 
-unsigned int faStr1(const char* str)
-{
+unsigned int faStr1(const char* str) {
     unsigned int count = 0;
     bool isWord = false;
 
-    while (*str != '\0')
-    {
-        if (std::isalpha(*str) && !std::isdigit(*str))
-        {
-            if (!isWord)
-            {
+    while (*str != '\0') {
+        if (std::isalpha(*str) && !std::isdigit(*str)) {
+            if (!isWord) {
                 count++;
                 isWord = true;
             }
-        }
-        else
-        {
+        } else {
             isWord = false;
         }
 
@@ -29,23 +23,17 @@ unsigned int faStr1(const char* str)
     return count;
 }
 
-unsigned int faStr2(const char* str)
-{
+unsigned int faStr2(const char* str) {
     unsigned int count = 0;
     bool isWord = false;
 
-    while (*str != '\0')
-    {
-        if (std::isupper(*str))
-        {
-            if (!isWord)
-            {
+    while (*str != '\0') {
+        if (std::isupper(*str)) {
+            if (!isWord) {
                 isWord = true;
                 count++;
             }
-        }
-        else if (std::islower(*str) || std::isspace(*str))
-        {
+        } else if (std::islower(*str) || std::isspace(*str)) {
             isWord = false;
         }
 
@@ -55,34 +43,27 @@ unsigned int faStr2(const char* str)
     return count;
 }
 
-unsigned int faStr3(const char* str)
-{
+unsigned int faStr3(const char* str) {
     unsigned int count = 0;
     unsigned int sum = 0;
     bool isWord = false;
 
-    while (*str != '\0')
-    {
-        if (std::isalpha(*str))
-        {
-            if (!isWord)
-            {
+    while (*str != '\0') {
+        if (std::isalpha(*str)) {
+            if (!isWord) {
                 isWord = true;
                 count++;
             }
 
             sum++;
-        }
-        else
-        {
+        } else {
             isWord = false;
         }
 
         str++;
     }
 
-    if (count == 0)
-    {
+    if (count == 0) {
         return 0;
     }
 
