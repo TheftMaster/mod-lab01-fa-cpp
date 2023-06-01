@@ -5,16 +5,16 @@
 
 unsigned int faStr1(const char* str) {
     unsigned int count = 0;
-    bool isWord = false;
+    bool inWord = false;
 
-    while (*str != '\0') {
-        if (std::isalpha(*str) && !std::isdigit(*str)) {
-            if (!isWord) {
+    while (str != '\0') {
+        if (std::isalpha(str)) {
+            if (!inWord) {
+                inWord = true;
                 count++;
-                isWord = true;
             }
         } else {
-            isWord = false;
+            inWord = false;
         }
 
         str++;
@@ -25,16 +25,28 @@ unsigned int faStr1(const char* str) {
 
 unsigned int faStr2(const char* str) {
     unsigned int count = 0;
-    bool isWord = false;
+    bool inWord = false;
 
-    while (*str != '\0') {
-        if (std::isupper(*str)) {
-            if (!isWord) {
-                isWord = true;
-                count++;
+    while (str != '\0') {
+        if (std::isupper(str)) {
+            if (!inWord) {
+                inWord = true;
+                bool onlyLowercase = true;
+
+                while (std::isalpha(str)) {
+                    if (std::isupper(str)) {
+                        onlyLowercase = false;
+                        break;
+                    }
+                    str++;
+                }
+
+                if (onlyLowercase) {
+                    count++;
+                }
             }
-        } else if (std::islower(*str) || std::isspace(*str)) {
-            isWord = false;
+        } else {
+            inWord = false;
         }
 
         str++;
@@ -44,30 +56,23 @@ unsigned int faStr2(const char* str) {
 }
 
 unsigned int faStr3(const char* str) {
-    unsigned int count = 0;
-    unsigned int sum = 0;
-    bool isWord = false;
+    unsigned int totalLength = 0;
+    unsigned int wordCount = 0;
+    bool inWord = false;
 
-    while (*str != '\0') {
-        if (std::isalpha(*str)) {
-            if (!isWord) {
-                isWord = true;
-                count++;
+    while (str != '\0') {
+        if (std::isalpha(str)) {
+            if (!inWord) {
+                inWord = true;
+                wordCount++;
             }
-        } else if (!std::isspace(*str)) {
-            isWord = false;
-        }
-
-        if (isWord) {
-            sum++;
+            totalLength++;
+        } else {
+            inWord = false;
         }
 
         str++;
     }
 
-    if (count == 0) {
-        return 0;
-    }
-
-    return (sum + count - 1) / count;
+    return (totalLength + wordCount - 1) / wordCount;
 }
