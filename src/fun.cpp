@@ -3,79 +3,68 @@
 #include <cctype>
 #include "fun.h"
 
-unsigned int faStr1(const char* str) }
-    unsigned int count = 0;
-    bool inWord = false;
-
-    while (str != '\0') {
-        if (std::isalpha(str)) {
-            if (!inWord) {
-                inWord = true;
-                count++;
-            }
-        } else {
-            inWord = false;
+unsigned int faStr1(const char* str) {
+    int wordCount = 0;
+    int alphaCount = 0;
+    int digitCount = 0;
+    for (int i = 0; i < strlen(str); i++) {
+        if (isdigit(str[i])) {
+            digitCount += 1;
         }
-
-        str++;
+        if (isalpha(str[i])) {
+            alphaCount += 1;
+        }
+        if (isspace(str[i])) {
+            if (digitCount == 0 && alphaCount > 0) {
+                wordCount++;
+            }
+            alphaCount = 0;
+            digitCount = 0;
+        }
     }
-
-    return count;
+    return wordCount;
 }
 
 unsigned int faStr2(const char* str) {
-    unsigned int count = 0;
-    bool inWord = false;
-
-    while (str != '\0') {
-        if (std::isupper(str)) {
-            if (!inWord) {
-                inWord = true;
-                bool onlyLowercase = true;
-
-                const char* wordStart = str;
-                while (std::isalpha(str)) {
-                    if (std::isupper(str)) {
-                        onlyLowercase = false;
-                        break;
-                    }
-                    str++;
-                }
-
-                if (onlyLowercase) {
-                    count++;
-                }
-
-                str = wordStart;
-            }
-        } else {
-            inWord = false;
+    int capitalCount = 0;
+    int alphaCount = 0;
+    int punctCount = 0;
+    for (int i = 0; i < strlen(str); i++) {
+        if (isupper(str[i]) && alphaCount == 0) {
+            alphaCount = 1;
         }
-
-        str++;
+        if (isdigit(str[i]) || ispunct(str[i])) {
+            punctCount += 1;
+        }
+        if (isspace(str[i])) {
+            if (punctCount == 0 && alphaCount == 1) {
+                capitalCount++;
+            }
+            alphaCount = 0;
+            punctCount = 0;
+        }
     }
-
-    return count;
+    return capitalCount;
 }
 
 unsigned int faStr3(const char* str) {
-    unsigned int totalLength = 0;
-    unsigned int wordCount = 0;
-    bool inWord = false;
-
-    while (str != '\0') {
-        if (std::isalpha(str)) {
-            if (!inWord) {
-                inWord = true;
-                wordCount++;
-            }
-            totalLength++;
-        } else {
-            inWord = false;
+    int wordCount = 0;
+    int alphaCount = 0;
+    int charCount = 0;
+    float average = 0;
+    for (int i = 0; i < strlen(str); i++) {
+        if (isalpha(str[i])) {
+            charCount++;
+            wordCount = 1;
         }
-
-        str++;
+        if (isspace(str[i]) && wordCount == 1) {
+            alphaCount++;
+            wordCount = 0;
+        }
     }
-
-    return (totalLength + wordCount - 1) / wordCount;
+    if (wordCount == 1) {
+        alphaCount++;
+    }
+    average = static_cast<double>(charCount) / alphaCount;
+    return round(average);
 }
