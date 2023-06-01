@@ -3,7 +3,7 @@
 #include <cctype>
 #include "fun.h"
 
-unsigned int faStr1(const char str) {
+unsigned int faStr1(const char* str) {
     unsigned int count = 0;
     bool inWord = false;
 
@@ -23,7 +23,7 @@ unsigned int faStr1(const char str) {
     return count;
 }
 
-unsigned int faStr2(const charstr) {
+unsigned int faStr2(const char* str) {
     unsigned int count = 0;
     bool inWord = false;
 
@@ -33,6 +33,7 @@ unsigned int faStr2(const charstr) {
                 inWord = true;
                 bool onlyLowercase = true;
 
+                const char* wordStart = str;
                 while (std::isalpha(str)) {
                     if (std::isupper(str)) {
                         onlyLowercase = false;
@@ -44,6 +45,8 @@ unsigned int faStr2(const charstr) {
                 if (onlyLowercase) {
                     count++;
                 }
+
+                str = wordStart;
             }
         } else {
             inWord = false;
@@ -55,13 +58,13 @@ unsigned int faStr2(const charstr) {
     return count;
 }
 
-unsigned int faStr3(const char str) {
+unsigned int faStr3(const char* str) {
     unsigned int totalLength = 0;
     unsigned int wordCount = 0;
     bool inWord = false;
 
     while (str != '\0') {
-        if (std::isalpha(*str)) {
+        if (std::isalpha(str)) {
             if (!inWord) {
                 inWord = true;
                 wordCount++;
